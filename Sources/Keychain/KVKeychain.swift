@@ -6,7 +6,7 @@ public struct KVKeychain {
     /// Sets the value of the specified default key.
     public static func set<T: Codable>(_ value: T?, forKey: String) throws {
         if value == nil {
-            try delete(forKey: forKey)
+            try removeObject(forKey: forKey)
             return
         }
         
@@ -61,7 +61,18 @@ public struct KVKeychain {
         }
     }
     
-    public static func update(_ value: Data, forKey: String) throws {
+    public static func removeObject(forKey: String) throws {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: forKey
+        ]
+        let status = SecItemDelete(query as CFDictionary)
+        guard status == noErr else {
+            throw KVKeychainError.failedToDeleteValue(status)
+        }
+    }
+    
+    internal static func update(_ value: Data, forKey: String) throws {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: forKey
@@ -70,17 +81,6 @@ public struct KVKeychain {
         let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         guard status == noErr else {
             throw KVKeychainError.failedToUpdateValue(status)
-        }
-    }
-    
-    internal static func delete(forKey: String) throws {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: forKey
-        ]
-        let status = SecItemDelete(query as CFDictionary)
-        guard status == noErr else {
-            throw KVKeychainError.failedToDeleteValue(status)
         }
     }
 }
