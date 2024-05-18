@@ -18,7 +18,7 @@ To integrate `KVKeychain` into your project using Swift Package Manager, add it 
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ssadel/KVKeychain.git", from: "1.0.0")
+    .package(url: "https://github.com/ssadel/KVKeychain.git", .upToNextMinor(from: "1.0.1"))
 ]
 ```
 
