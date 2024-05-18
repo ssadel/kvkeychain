@@ -3,7 +3,7 @@
 [![Swift](https://img.shields.io/badge/Swift-5.10-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A Swift package for managing key-value pairs securely using the Keychain, similar to UserDefaults.
+A thin wrapper on Swift's Keychain functionality for managing key-value pairs securely. Inspired by UserDefaults.
 
 ## Features
 
