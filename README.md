@@ -40,7 +40,7 @@ let value: String = "123456"
 try? KVKeychain.set(value, forKey: key)
 
 // Get value
-try? KVKeychain.getValue(forKey: key) // 123456
+guard let value: String = try? KVKeychain.getValue(forKey: key) else { return }
 
 // Update value
 let newValue: String = "654321"
